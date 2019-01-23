@@ -1,13 +1,19 @@
 .App {
+  height: 100vh;
+  width: 100vw;
   text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: rgb(46, 46, 46);
+  font-family: 'Press Start 2P', cursive;
 
   .title-container {
     padding-top: 10px;
     height: 50px;
+    font-size: 2rem;
+    color: rgb(252, 252, 67);
   }
 
   .maze-container {
@@ -15,7 +21,7 @@
     flex-wrap: wrap;
     flex-shrink: 0;
     position: relative;
-    border: 2px solid rgb(255, 138, 29);
+    border: 3px solid rgb(135, 255, 56);
 
     .win-img {
       height: 100%;
@@ -26,6 +32,7 @@
       height: 50px;
       width: 50px;
       background-color: black;
+      box-sizing: border-box;
     }
 
     .wall {
@@ -43,6 +50,7 @@
       background-color: rgb(88, 197, 15);
       background-image: url('../src/images/t-rex.jpeg');
       background-size: contain;
+      box-sizing: border-box;
       z-index: 5;
     }
 
@@ -54,9 +62,22 @@
       box-sizing: border-box;
       border: 2px solid black;
     }
+
+    .treasure {
+      height: 50px;
+      width: 50px;
+      background-image: url('../src/images/treasure.jpg');
+      background-size: contain;
+      box-sizing: border-box;
+      border: 1px solid black;
+    }
   }
 
-
+  .score {
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    color: rgb(252, 252, 67);
+  }
 
 }
 

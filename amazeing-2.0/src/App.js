@@ -62,6 +62,8 @@ class App extends Component {
             mazeArray.push(<div id='player' key={`${row}${col}`} className='ground'></div>);
           } else if (maze[row][col] === 4) {
             mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='coin'></div>);
+          } else if (maze[row][col] === 5) {
+            mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='treasure'></div>);
           }
         }
       }
@@ -80,56 +82,64 @@ class App extends Component {
     }
   }
 
+  getPoints = (newPos) => {
+    // Allot points if player moves over coins or treasure
+    if (newPos === 4) {
+      let newMaze = this.state.currentMaze
+      newMaze[this.state.player.row][this.state.player.col] = 0
+      this.setState({score: this.state.score + 1, currentMaze: newMaze})
+      }
+    if (newPos === 5) {
+      let newMaze = this.state.currentMaze
+      newMaze[this.state.player.row][this.state.player.col] = 0
+      this.setState({score: this.state.score + 10, currentMaze: newMaze})
+    }
+  }
+
   movePlayer = (e) => {
     let player = this.state.player
     let winningPos = this.state.winningPos
     let maze = this.state.currentMaze
+    let newPos 
     
+    // only move player if game is not over (win = false)
     if (!this.state.win) {
+
+      // win the game if player exists the maze
       if (player.col === winningPos.col && player.row === winningPos.row) {
-        console.log("you win!")
         this.setState({win: true, player: null})
-      } else if (e.code === "ArrowLeft" ) {
-        if (maze[player.row][player.col-1] !== 1) {
-          if (maze[player.row][player.col-1] === 4) {
-            // Make coins disappear after collected, and add points to player's score
-            let newMaze = this.state.currentMaze
-            newMaze[player.row][player.col-1] = 0
-            this.setState({score: this.state.score + 1, currentMaze: newMaze})
-          }
-          // move player's position, if move will not put player into a wall
+      } 
+      
+      // move player's position if move will not put player inside a wall
+      if (e.code === "ArrowLeft" ) {
+        newPos = maze[player.row][player.col - 1]
+        if (maze[player.row][player.col - 1] !== 1) {
           this.setState({player: {...this.state.player, col: this.state.player.col - 1}})
         }
-      } else if (e.code === "ArrowUp") {
-        if (maze[player.row-1][player.col] !== 1) {
-          if (maze[player.row-1][player.col] === 4) {
-            let newMaze = this.state.currentMaze
-            newMaze[player.row-1][player.col] = 0
-            this.setState({score: this.state.score + 1, currentMaze: newMaze})
-          }
+      } 
+      if (e.code === "ArrowUp") {
+        newPos = maze[player.row - 1][player.col]
+        if (maze[player.row - 1][player.col] !== 1) {
           this.setState({player: {...this.state.player, row: this.state.player.row - 1}})
         }
-      } else if (e.code === "ArrowRight") {
-          if (maze[player.row][player.col+1] !== 1) {
-            if (maze[player.row][player.col+1] === 4) {
-              let newMaze = this.state.currentMaze
-              newMaze[player.row][player.col+1] = 0
-              this.setState({score: this.state.score + 1, currentMaze: newMaze})
-            }
+      } 
+      if (e.code === "ArrowRight") {
+        newPos = maze[player.row][player.col + 1]
+          if (maze[player.row][player.col + 1] !== 1) {
           this.setState({player: {...this.state.player, col: this.state.player.col + 1}})
         }
-      } else if (e.code === "ArrowDown") {
-        if (maze[player.row+1][player.col] !== 1) {
-          if (maze[player.row+1][player.col] === 4){
-            let newMaze = this.state.currentMaze
-            newMaze[player.row+1][player.col] = 0
-            this.setState({score: this.state.score + 1, currentMaze: newMaze})
-          }
+      } 
+      if (e.code === "ArrowDown") {
+        newPos = maze[player.row + 1][player.col]
+        if (maze[player.row + 1][player.col] !== 1) {
           this.setState({player: {...this.state.player, row: this.state.player.row + 1}})
         }
       }
+      this.getPoints(newPos)
     }
   }
+    
+
   
 
   render() {
@@ -143,7 +153,9 @@ class App extends Component {
           {this.showPlayer()}
         </div>
 
+        <div className="score">
         Score: {this.state.score}
+        </div>
 
       </div>
     );

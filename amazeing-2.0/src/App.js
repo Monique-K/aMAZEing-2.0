@@ -11,7 +11,11 @@ class App extends Component {
       currentMaze: maze1,
       mazeX: mazeInfo.width,
       mazeY: mazeInfo.height,
-      winningPos: mazeInfo.winningPos,
+      score: 0,
+      winningPos: {
+        row: mazeInfo.winningPos.row,
+        col: mazeInfo.winningPos.col
+      },
       player: {
         row: mazeInfo.player.row,
         col: mazeInfo.player.col
@@ -53,7 +57,7 @@ class App extends Component {
           } else if (maze[row][col] === 3) {
             mazeArray.push(<div id='player' key={`${row}${col}`} className='ground'></div>);
           } else if (maze[row][col] === 4) {
-            mazeArray.push(<div id={`row${row}-col${col}`} src='/imgs/coin.jpg' key={`${row}${col}`} className='coin'></div>);
+            mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='coin'></div>);
           }
         }
       }
@@ -72,6 +76,7 @@ class App extends Component {
     let player = this.state.player
     let winningPos = this.state.winningPos
     let maze = this.state.currentMaze
+    
 
     if (player.col === winningPos.col && player.row === winningPos.row) {
       console.log("you win!")
@@ -81,28 +86,38 @@ class App extends Component {
     } else if (e.code === "ArrowLeft" ) {
       if (maze[player.row][player.col-1] !== 1) {
         if (maze[player.row][player.col-1] === 4) {
-          // score ++;
+          // Make coins disappear after collected, and add points to player's score
+          let newMaze = this.state.currentMaze
+          newMaze[player.row][player.col-1] = 0
+          this.setState({score: this.state.score + 1, currentMaze: newMaze})
         }
+        // move player's position, if move will not put player into a wall
         this.setState({player: {...this.state.player, col: this.state.player.col - 1}})
       }
     } else if (e.code === "ArrowUp") {
       if (maze[player.row-1][player.col] !== 1) {
         if (maze[player.row-1][player.col] === 4) {
-          // score ++;
+          let newMaze = this.state.currentMaze
+          newMaze[player.row-1][player.col] = 0
+          this.setState({score: this.state.score + 1, currentMaze: newMaze})
         }
         this.setState({player: {...this.state.player, row: this.state.player.row - 1}})
       }
     } else if (e.code === "ArrowRight") {
         if (maze[player.row][player.col+1] !== 1) {
           if (maze[player.row][player.col+1] === 4) {
-            // score ++;
+            let newMaze = this.state.currentMaze
+            newMaze[player.row][player.col+1] = 0
+            this.setState({score: this.state.score + 1, currentMaze: newMaze})
           }
         this.setState({player: {...this.state.player, col: this.state.player.col + 1}})
       }
     } else if (e.code === "ArrowDown") {
       if (maze[player.row+1][player.col] !== 1) {
         if (maze[player.row+1][player.col] === 4){
-          // score ++;
+          let newMaze = this.state.currentMaze
+          newMaze[player.row+1][player.col] = 0
+          this.setState({score: this.state.score + 1, currentMaze: newMaze})
         }
         this.setState({player: {...this.state.player, row: this.state.player.row + 1}})
       }
@@ -120,6 +135,8 @@ class App extends Component {
         {this.renderMaze()}
         {this.showPlayer()}
         </div>
+
+        Score: {this.state.score}
 
       </div>
     );

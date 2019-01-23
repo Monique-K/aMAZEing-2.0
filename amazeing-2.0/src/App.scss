@@ -42,6 +42,15 @@
       background-size: contain;
       z-index: 5;
     }
+
+    .coin {
+      height: 50px;
+      width: 50px;
+      background-image: url('../src/images/coin.jpg');
+      background-size: contain;
+      box-sizing: border-box;
+      border: 2px solid black;
+    }
   }
 
 

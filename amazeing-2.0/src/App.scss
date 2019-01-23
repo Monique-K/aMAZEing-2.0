@@ -16,8 +16,11 @@
     flex-shrink: 0;
     position: relative;
     border: 2px solid rgb(255, 138, 29);
-    height: 500px; 
-    width: 650px;
+
+    .win-img {
+      height: 100%;
+      width: 100%;
+    }
 
     .ground {
       height: 50px;

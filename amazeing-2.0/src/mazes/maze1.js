@@ -11,7 +11,7 @@ export const maze1 =  [
   [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ]
 
-export const mazeInfo = {
+export const maze1Info = {
   height: maze1.length,
   width: maze1[0].length,
   winningPos: {

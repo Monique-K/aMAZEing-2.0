@@ -13,5 +13,10 @@ export const maze1 =  [
 
 export const mazeInfo = {
   height: maze1.length,
-  width: maze1[0].length
+  width: maze1[0].length,
+  winningPos: maze1[1][12],
+  player: {
+    row: 7,
+    col: 0
+  }
 }

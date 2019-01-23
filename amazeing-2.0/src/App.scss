@@ -20,24 +20,27 @@
     width: 650px;
 
     .ground {
-      // position: absolute;
       height: 50px;
       width: 50px;
       background-color: black;
     }
 
     .wall {
-      // position: absolute;
       height: 50px;
       width: 50px;
-      background-color: rgb(211, 103, 2);
+      background-image: url('../src/images/wall.png');
+      background-size: contain;
+      box-sizing: border-box;
+      border: 2px solid black;
     }
 
     .player {
-      // position: absolute;
       height: 50px;
       width: 50px;
       background-color: rgb(88, 197, 15);
+      background-image: url('../src/images/t-rex.jpeg');
+      background-size: contain;
+      z-index: 5;
     }
   }
 

@@ -55,15 +55,15 @@ class App extends Component {
       for (let row = 0; row < maze.length; row ++) {
         for (let col = 0; col < maze[row].length; col++) {
           if (maze[row][col] === 1) {
-            mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='wall'></div>);
+            mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='box wall' style={{height: 50, width: 50}}></div>);
           } else if (maze[row][col] === 0) {
-            mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='ground'></div>);
+            mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='box ground' style={{height: 50, width: 50}}></div>);
           } else if (maze[row][col] === 3) {
-            mazeArray.push(<div id='player' key={`${row}${col}`} className='ground'></div>);
+            mazeArray.push(<div id='player' key={`${row}${col}`} className='box player' style={{height: 50, width: 50}}></div>);
           } else if (maze[row][col] === 4) {
-            mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='coin'></div>);
+            mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='box coin' style={{height: 50, width: 50}}></div>);
           } else if (maze[row][col] === 5) {
-            mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='treasure'></div>);
+            mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='box treasure' style={{height: 50, width: 50}}></div>);
           }
         }
       }
@@ -191,6 +191,8 @@ TO DO:
 - set maze container size based on maze
 - change replay fn to account for which maze is current
 - fix diseappearing treasure on replay
+- add timing to score
+- add name and leaderboard, persistent score
 
 
 

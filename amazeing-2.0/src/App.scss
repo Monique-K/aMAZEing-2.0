@@ -6,7 +6,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: rgb(46, 46, 46);
+  background-color: rgb(0, 0, 0);
   font-family: 'Press Start 2P', cursive;
 
   .title-container {
@@ -28,47 +28,34 @@
       width: 100%;
     }
 
+    .box {
+      background-size: contain;
+      box-sizing: border-box;
+    }
+
     .ground {
-      height: 50px;
-      width: 50px;
       background-color: black;
       box-sizing: border-box;
     }
 
     .wall {
-      height: 50px;
-      width: 50px;
       background-image: url('../src/images/wall.png');
-      background-size: contain;
-      box-sizing: border-box;
+      
       border: 2px solid black;
     }
 
     .player {
-      height: 50px;
-      width: 50px;
-      background-color: rgb(88, 197, 15);
       background-image: url('../src/images/t-rex.jpeg');
-      background-size: contain;
-      box-sizing: border-box;
       z-index: 5;
     }
 
     .coin {
-      height: 50px;
-      width: 50px;
       background-image: url('../src/images/coin.jpg');
-      background-size: contain;
-      box-sizing: border-box;
       border: 2px solid black;
     }
 
     .treasure {
-      height: 50px;
-      width: 50px;
       background-image: url('../src/images/treasure.jpg');
-      background-size: contain;
-      box-sizing: border-box;
       border: 1px solid black;
     }
   }

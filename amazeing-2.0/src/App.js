@@ -38,16 +38,6 @@ class App extends Component {
     document.addEventListener("keydown", this.movePlayer)
   }
 
-  // setMazeStyle = () => {
-  //   if (this.state.mazeX && this.state.mazeY) {
-  //     const mazeStyle = {
-  //       width: this.state.width * 10, 
-  //       height: this.state.height * 10
-  //     }
-  //     return mazeStyle
-  //   }
-  // }
-
   renderMaze = () => {
     const mazeArray = []
     let maze = this.state.currentMaze
@@ -59,7 +49,7 @@ class App extends Component {
           } else if (maze[row][col] === 0) {
             mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='box ground' style={{height: 50, width: 50}}></div>);
           } else if (maze[row][col] === 3) {
-            mazeArray.push(<div id='player' key={`${row}${col}`} className='box player' style={{height: 50, width: 50}}></div>);
+            mazeArray.push(<div id='player' key={`${row}${col}`} className='box ground' style={{height: 50, width: 50}}></div>);
           } else if (maze[row][col] === 4) {
             mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='box coin' style={{height: 50, width: 50}}></div>);
           } else if (maze[row][col] === 5) {

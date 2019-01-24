@@ -47,6 +47,10 @@
     .player {
       background-image: url('../src/images/t-rex.jpeg');
       z-index: 5;
+      background-size: contain;
+      box-sizing: border-box;
+      height: 50px;
+      width: 50px;
     }
 
     .coin {
@@ -60,31 +64,10 @@
     }
   }
 
-  .bottom-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-    .score {
-      margin-top: 0.5rem;
-      font-size: 1.5rem;
-      color: rgb(252, 252, 67);
-      width: 20rem;
-    }
-
-    .replay-btn-container {
-      width: 20rem;
-    }
-
-    .replay-btn {
-      text-align: center;
-      background-color: rgb(88, 197, 15);
-      width: 12rem;
-      height: 2rem;
-      padding-top: 1rem;
-      margin-top: 0.5rem;
-      border: 1px solid black;
-    }
+  .score {
+    margin-top: 0.5rem;
+    font-size: 1.5rem;
+    color: rgb(252, 252, 67);
   }
 
 }

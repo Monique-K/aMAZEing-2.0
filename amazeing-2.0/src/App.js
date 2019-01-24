@@ -11,17 +11,18 @@ class App extends Component {
 
     this.state = {
       win: false,
-      currentMaze: maze1,
-      mazeX: maze1Info.width,
-      mazeY: maze1Info.height,
+      currentMaze: maze2,
+      mazeX: maze2Info.width,
+      mazeY: maze2Info.height,
+      boxSize: maze2Info.boxSize,
       score: 0,
       winningPos: {
-        row: maze1Info.winningPos.row,
-        col: maze1Info.winningPos.col
+        row: maze2Info.winningPos.row,
+        col: maze2Info.winningPos.col
       },
       player: {
-        row: maze1Info.player.row,
-        col: maze1Info.player.col
+        row: maze2Info.player.row,
+        col: maze2Info.player.col
       },
     }
   }
@@ -41,19 +42,21 @@ class App extends Component {
   renderMaze = () => {
     const mazeArray = []
     let maze = this.state.currentMaze
+    let px = this.state.boxSize
+
     if (!this.state.win) {
       for (let row = 0; row < maze.length; row ++) {
         for (let col = 0; col < maze[row].length; col++) {
           if (maze[row][col] === 1) {
-            mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='box wall' style={{height: 50, width: 50}}></div>);
+            mazeArray.push(<div id={`row${row}-col${col}`} key={`row${row}-col${col}`} className='box wall' style={{height: px, width: px}}></div>);
           } else if (maze[row][col] === 0) {
-            mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='box ground' style={{height: 50, width: 50}}></div>);
+            mazeArray.push(<div id={`row${row}-col${col}`} key={`row${row}-col${col}`} className='box ground' style={{height: px, width: px}}></div>);
           } else if (maze[row][col] === 3) {
-            mazeArray.push(<div id='player' key={`${row}${col}`} className='box ground' style={{height: 50, width: 50}}></div>);
+            mazeArray.push(<div id='player' key={`row${row}-col${col}`} className='box ground' style={{height: px, width: px}}></div>);
           } else if (maze[row][col] === 4) {
-            mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='box coin' style={{height: 50, width: 50}}></div>);
+            mazeArray.push(<div id={`row${row}-col${col}`} key={`row${row}-col${col}`} className='box coin' style={{height: px, width: px}}></div>);
           } else if (maze[row][col] === 5) {
-            mazeArray.push(<div id={`row${row}-col${col}`} key={`${row}${col}`} className='box treasure' style={{height: 50, width: 50}}></div>);
+            mazeArray.push(<div id={`row${row}-col${col}`} key={`row${row}-col${col}`} className='box treasure' style={{height: px, width: px}}></div>);
           }
         }
       }
@@ -64,13 +67,26 @@ class App extends Component {
 
   showPlayer = () => {
     let player = this.state.player
+    let px = this.state.boxSize
+
     if (player && !this.state.win) {
       return (
-        <div id='player' className='player' style={{position: "absolute", top: player.row * 50, left: player.col * 50}}>
-      </div>
+        <div id='player' 
+          className='player' 
+          style={{
+            position: "absolute", 
+            top: player.row * px, 
+            left: player.col * px,
+            height: px,
+            width: px
+            }}>
+        </div>
       )
     }
   }
+
+  // 180l  X 30h
+ // col 11 row 6 
 
   getPoints = (newPos) => {
     // Allot points if player moves over coins or treasure
@@ -136,6 +152,7 @@ class App extends Component {
       currentMaze: maze1,
       mazeX: maze1Info.width,
       mazeY: maze1Info.height,
+      boxSize: maze1Info.boxSize,
       score: 0,
       winningPos: {
         row: maze1Info.winningPos.row,
@@ -150,12 +167,14 @@ class App extends Component {
   
 
   render() {
+    const px = this.state.boxSize
+
     return (
       <div className="App">
       
         <div className="title-container">a-MAZE-ing</div>
         
-        <div className="maze-container" style={{height: this.state.mazeY * 50, width: this.state.mazeX * 50}}>
+        <div className="maze-container" style={{height: this.state.mazeY * px, width: this.state.mazeX * px}}>
           {this.renderMaze()}
           {this.showPlayer()}
         </div>

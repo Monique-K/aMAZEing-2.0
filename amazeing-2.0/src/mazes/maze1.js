@@ -14,6 +14,7 @@ export const maze1 =  [
 export const maze1Info = {
   height: maze1.length,
   width: maze1[0].length,
+  boxSize: 50,
   winningPos: {
     row: 1,
     col: 12

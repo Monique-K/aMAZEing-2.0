@@ -101,7 +101,7 @@ class App extends Component {
     let winningPos = this.state.winningPos
     let maze = this.state.currentMaze
     let newPos 
-    
+
     // only move player if game is not over (win = false)
     if (!this.state.win) {
 
@@ -111,25 +111,25 @@ class App extends Component {
       } 
       
       // move player's position if move will not put player inside a wall
-      if (e.code === "ArrowLeft" ) {
+      else if (e.code === "ArrowLeft" ) {
         newPos = maze[player.row][player.col - 1]
         if (maze[player.row][player.col - 1] !== 1) {
           this.setState({player: {...this.state.player, col: this.state.player.col - 1}})
         }
       } 
-      if (e.code === "ArrowUp") {
+      else if (e.code === "ArrowUp") {
         newPos = maze[player.row - 1][player.col]
         if (maze[player.row - 1][player.col] !== 1) {
           this.setState({player: {...this.state.player, row: this.state.player.row - 1}})
         }
       } 
-      if (e.code === "ArrowRight") {
+      else if (e.code === "ArrowRight") {
         newPos = maze[player.row][player.col + 1]
           if (maze[player.row][player.col + 1] !== 1) {
           this.setState({player: {...this.state.player, col: this.state.player.col + 1}})
         }
       } 
-      if (e.code === "ArrowDown") {
+      else if (e.code === "ArrowDown") {
         newPos = maze[player.row + 1][player.col]
         if (maze[player.row + 1][player.col] !== 1) {
           this.setState({player: {...this.state.player, row: this.state.player.row + 1}})
@@ -140,6 +140,23 @@ class App extends Component {
   }
     
 
+  replay = () => {
+    this.setState({
+      win: false,
+      currentMaze: maze1,
+      mazeX: maze1Info.width,
+      mazeY: maze1Info.height,
+      score: 0,
+      winningPos: {
+        row: maze1Info.winningPos.row,
+        col: maze1Info.winningPos.col
+      },
+      player: {
+        row: maze1Info.player.row,
+        col: maze1Info.player.col
+      }
+    })
+  }
   
 
   render() {
@@ -152,9 +169,13 @@ class App extends Component {
           {this.renderMaze()}
           {this.showPlayer()}
         </div>
-
-        <div className="score">
-        Score: {this.state.score}
+        <div className="bottom-container">
+          <div className="score">
+            Score: {this.state.score}
+          </div>
+          <div className="replay-btn-container">
+            <div className="replay-btn" onClick={this.replay}>Play Again</div>
+          </div>
         </div>
 
       </div>
@@ -167,7 +188,9 @@ export default App;
 /*
 TO DO:
 
--set maze container size based on maze
+- set maze container size based on maze
+- change replay fn to account for which maze is current
+- fix diseappearing treasure on replay
 
 
 

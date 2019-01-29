@@ -162,25 +162,6 @@ class App extends Component {
   playTwo = () => {
     this.setState({
       win: false,
-      currentMaze: maze3,
-      mazeX: maze3Info.width,
-      mazeY: maze3Info.height,
-      boxSize: maze3Info.boxSize,
-      score: 0,
-      winningPos: {
-        row: maze3Info.winningPos.row,
-        col: maze3Info.winningPos.col
-      },
-      player: {
-        row: maze3Info.player.row,
-        col: maze3Info.player.col
-      }
-    })
-  }
-
-  playThree = () => {
-    this.setState({
-      win: false,
       currentMaze: maze2,
       mazeX: maze2Info.width,
       mazeY: maze2Info.height,
@@ -193,6 +174,25 @@ class App extends Component {
       player: {
         row: maze2Info.player.row,
         col: maze2Info.player.col
+      }
+    })
+  }
+
+  playThree = () => {
+    this.setState({
+      win: false,
+      currentMaze: maze3,
+      mazeX: maze3Info.width,
+      mazeY: maze3Info.height,
+      boxSize: maze3Info.boxSize,
+      score: 0,
+      winningPos: {
+        row: maze3Info.winningPos.row,
+        col: maze3Info.winningPos.col
+      },
+      player: {
+        row: maze3Info.player.row,
+        col: maze3Info.player.col
       }
     })
   }

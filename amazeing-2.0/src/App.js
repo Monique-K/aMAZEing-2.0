@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import './App.scss';
-import { maze1Info } from './mazes/maze1';
-import { maze1 } from './mazes/maze1';
-import { maze2Info } from './mazes/maze2';
-import { maze2 } from './mazes/maze2';
-import { maze3Info } from './mazes/maze3';
-import { maze3 } from './mazes/maze3';
+import { maze1Info, maze1 } from './mazes/maze1';
+import { maze2Info, maze2 } from './mazes/maze2';
+import { maze3Info, maze3 } from './mazes/maze3';
 
 class App extends Component {
   constructor(){
@@ -79,9 +76,48 @@ class App extends Component {
     }
   }
 
-  // 180l  X 30h
- // col 11 row 6 
+  movePlayer = (e) => {
+    let player = this.state.player
+    let winningPos = this.state.winningPos
+    let maze = this.state.currentMaze
+    let newPos 
+    // only move player if game is not over (win = false)
+    if (!this.state.win) {
 
+      // win the game if player exists the maze
+      if (player.col === winningPos.col && player.row === winningPos.row) {
+        this.setState({win: true, player: null})
+      } 
+      
+      // move player's position if move will not put player inside a wall
+      else if (e.code === "ArrowLeft" ) {
+        newPos = maze[player.row][player.col - 1]
+        if (newPos !== 1) {
+          this.setState({player: {...this.state.player, col: this.state.player.col - 1}})
+        }
+      } 
+      else if (e.code === "ArrowUp") {
+        newPos = maze[player.row - 1][player.col]
+        if (newPos !== 1) {
+          this.setState({player: {...this.state.player, row: this.state.player.row - 1}})
+        }
+      } 
+      else if (e.code === "ArrowRight") {
+        newPos = maze[player.row][player.col + 1]
+          if (newPos !== 1) {
+          this.setState({player: {...this.state.player, col: this.state.player.col + 1}})
+        }
+      } 
+      else if (e.code === "ArrowDown") {
+        newPos = maze[player.row + 1][player.col]
+        if (newPos !== 1) {
+          this.setState({player: {...this.state.player, row: this.state.player.row + 1}})
+        }
+      }
+      this.getPoints(newPos)
+    }
+  }
+  
   getPoints = (newPos) => {
     // Allot points if player moves over coins or treasure
     if (newPos === 4) {
@@ -95,50 +131,6 @@ class App extends Component {
       this.setState({score: this.state.score + 10, currentMaze: newMaze})
     }
   }
-
-  movePlayer = (e) => {
-    let player = this.state.player
-    let winningPos = this.state.winningPos
-    let maze = this.state.currentMaze
-    let newPos 
-
-    // only move player if game is not over (win = false)
-    if (!this.state.win) {
-
-      // win the game if player exists the maze
-      if (player.col === winningPos.col && player.row === winningPos.row) {
-        this.setState({win: true, player: null})
-      } 
-      
-      // move player's position if move will not put player inside a wall
-      else if (e.code === "ArrowLeft" ) {
-        newPos = maze[player.row][player.col - 1]
-        if (maze[player.row][player.col - 1] !== 1) {
-          this.setState({player: {...this.state.player, col: this.state.player.col - 1}})
-        }
-      } 
-      else if (e.code === "ArrowUp") {
-        newPos = maze[player.row - 1][player.col]
-        if (maze[player.row - 1][player.col] !== 1) {
-          this.setState({player: {...this.state.player, row: this.state.player.row - 1}})
-        }
-      } 
-      else if (e.code === "ArrowRight") {
-        newPos = maze[player.row][player.col + 1]
-          if (maze[player.row][player.col + 1] !== 1) {
-          this.setState({player: {...this.state.player, col: this.state.player.col + 1}})
-        }
-      } 
-      else if (e.code === "ArrowDown") {
-        newPos = maze[player.row + 1][player.col]
-        if (maze[player.row + 1][player.col] !== 1) {
-          this.setState({player: {...this.state.player, row: this.state.player.row + 1}})
-        }
-      }
-      this.getPoints(newPos)
-    }
-  }
-    
 
   playOne = () => {
     this.setState({
@@ -237,6 +229,15 @@ class App extends Component {
 
 export default App;
 
+
+
+
+
+
+
+
+
+
 /*
 TO DO:
 
@@ -245,6 +246,7 @@ TO DO:
 - add name and leaderboard, persistent score
 - add difficulty meter to level buttons
 
-
+KNOWN ISSUES:
+  - player wins when moving any direction from winning position
 
 */
